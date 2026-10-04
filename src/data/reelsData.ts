@@ -2,8 +2,8 @@
 
 // Vite resolves these imports at build time and gives you the correct URL.
 // Make sure the files live at: src/assets/reel1.mp4 and src/assets/reel2.mp4
-import reelDeen1 from '..//assets/reel1.mp4';
-import reelDeen2 from '..//assets/reel2.mp4';
+import reelDeen1 from '/assets/reel1.mp4';
+import reelDeen2 from '/assets/reel2.mp4';
 
 export interface EducationalReel {
   id: string;
