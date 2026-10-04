@@ -1,0 +1,6 @@
+{
+  "name": "SONORUM — Record Label",
+  "description": "An analog & electronic record label portal featuring a mechanical opening hero, throwable vinyl catalogue, artist roster, and tour dates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
