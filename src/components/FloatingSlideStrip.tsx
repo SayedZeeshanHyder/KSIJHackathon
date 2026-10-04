@@ -17,7 +17,7 @@ export const COMMUNITY_SLIDES: SlideItem[] = [
     tag: 'CAREER // 01',
     title: 'Career & Apprenticeship Mentorship',
     description: 'Direct interviews, vocational skill placements, and professional advancement.',
-    image: '/src/assets/images/jobs_interview_1791103058589.jpg',
+    image: '/assets/images/jobs_interview_1791103058589.jpg',
     targetId: 'jobs'
   },
   {
@@ -26,7 +26,7 @@ export const COMMUNITY_SLIDES: SlideItem[] = [
     tag: 'ACADEMIC // 02',
     title: 'Youth Learning & Digital Literacy',
     description: 'After-school study cohorts, digital tools, and collective knowledge sharing.',
-    image: '/src/assets/images/education_session_1791103042527.jpg',
+    image: '/assets/images/education_session_1791103042527.jpg',
     targetId: 'education'
   },
   {
@@ -35,7 +35,7 @@ export const COMMUNITY_SLIDES: SlideItem[] = [
     tag: 'ARCHIVE // 03',
     title: 'Heritage Assemblies & Recitations',
     description: 'Documentary audio reels, cultural lectures, and preserved oral history.',
-    image: '/src/assets/images/community_hall_1791103097676.jpg',
+    image: '/assets/images/community_hall_1791103097676.jpg',
     targetId: 'reels'
   },
   {
@@ -44,7 +44,7 @@ export const COMMUNITY_SLIDES: SlideItem[] = [
     tag: 'SOLIDARITY // 04',
     title: 'Congregational Commemorations',
     description: 'Auditorium gatherings bringing hundreds together in solemn unity.',
-    image: '/src/assets/images/community_event_1791103076936.jpg',
+    image: '/assets/images/community_event_1791103076936.jpg',
     targetId: 'events'
   },
   {
@@ -53,7 +53,7 @@ export const COMMUNITY_SLIDES: SlideItem[] = [
     tag: 'MAJLIS // 05',
     title: 'Scholarly Majlis & Keynote Assembly',
     description: 'Spiritual discourses, ethical guidance, and community congregation around traditional scholarship.',
-    image: '/src/assets/images/majlis_assembly_1791103671432.jpg',
+    image: '/assets/images/majlis_assembly_1791103671432.jpg',
     targetId: 'reels'
   },
   {
@@ -62,7 +62,7 @@ export const COMMUNITY_SLIDES: SlideItem[] = [
     tag: 'CELEBRATION // 06',
     title: 'Grand Pavilion & Ceremonial Reception',
     description: 'Annual festive banquet, communal milestones, and celebratory gatherings under crimson canopies.',
-    image: '/src/assets/images/heritage_canopy_1791103694047.jpg',
+    image: '/assets/images/heritage_canopy_1791103694047.jpg',
     targetId: 'events'
   }
 ];

@@ -2,8 +2,8 @@
 
 // Vite resolves these imports at build time and gives you the correct URL.
 // Make sure the files live at: src/assets/reel1.mp4 and src/assets/reel2.mp4
-import reelDeen1 from '../../assets/reel1.mp4';
-import reelDeen2 from '../../assets/reel2.mp4';
+import reelDeen1 from '..//assets/reel1.mp4';
+import reelDeen2 from '..//assets/reel2.mp4';
 
 export interface EducationalReel {
   id: string;
@@ -34,10 +34,10 @@ export const COMMUNITY_REELS: EducationalReel[] = [
     category: 'Quranic Gems',
     duration: '0:58',
     creator: 'Sayyid Ammar',
-    creatorAvatar: '/src/assets/images/majlis_assembly_1791103671432.jpg',
+    creatorAvatar: '/assets/images/majlis_assembly_1791103671432.jpg',
     creatorRole: 'Community Scholar & Lecturer',
     videoUrl: reelDeen1, // ← local asset
-    thumbnail: '/src/assets/images/majlis_assembly_1791103671432.jpg',
+    thumbnail: '/assets/images/majlis_assembly_1791103671432.jpg',
     caption:
       "Why is Allah's mercy described in two distinct names: Ar-Rahman and Ar-Rahim? Here is the profound linguistic difference in under 60 seconds. #DeenIn60 #QuranReflections #OneCommunity",
     likes: 2480,
@@ -53,10 +53,10 @@ export const COMMUNITY_REELS: EducationalReel[] = [
     category: 'Prophetic Akhlaq',
     duration: '0:59',
     creator: 'Ustadh Tariq Al-Hadi',
-    creatorAvatar: '/src/assets/images/community_event_1791103076936.jpg',
+    creatorAvatar: '/assets/images/community_event_1791103076936.jpg',
     creatorRole: 'Youth Mentor & Educator',
     videoUrl: reelDeen2, // ← local asset
-    thumbnail: '/src/assets/images/community_event_1791103076936.jpg',
+    thumbnail: '/assets/images/community_event_1791103076936.jpg',
     caption:
       'When provocation happens, remember the 3 sunnah steps taught by the Prophet: sit down if standing, make wudhu with cool water, and seek refuge from Shaytan. #PropheticEthics #SunnahHabits #Akhlaq',
     likes: 3120,
@@ -72,11 +72,11 @@ export const COMMUNITY_REELS: EducationalReel[] = [
     category: 'Salah Mastery',
     duration: '0:54',
     creator: 'Sister Fatima Zahra',
-    creatorAvatar: '/src/assets/images/community_hall_1791103097676.jpg',
+    creatorAvatar: '/assets/images/community_hall_1791103097676.jpg',
     creatorRole: 'Islamic Studies Instructor',
     videoUrl:
       'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-    thumbnail: '/src/assets/images/heritage_canopy_1791103694047.jpg',
+    thumbnail: '/assets/images/heritage_canopy_1791103694047.jpg',
     caption:
       'Do you find your mind wandering during prayer? Spend 30 seconds before your Takbir reminding yourself of Who you are standing before. Here is the mental visualization method. #SalahFirst #PrayerFocus',
     likes: 4210,
@@ -94,11 +94,11 @@ export const COMMUNITY_REELS: EducationalReel[] = [
     category: '10th Math Shortcut',
     duration: '0:58',
     creator: 'Sir Imran Qureshi',
-    creatorAvatar: '/src/assets/images/education_session_1791103042527.jpg',
+    creatorAvatar: '/assets/images/education_session_1791103042527.jpg',
     creatorRole: 'Senior Mathematics Educator',
     videoUrl:
       'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    thumbnail: '/src/assets/images/education_session_1791103042527.jpg',
+    thumbnail: '/assets/images/education_session_1791103042527.jpg',
     caption:
       'Stop writing 6 lines of factoring! Use this cross-coefficient mental math trick to solve standard Class 10 Board exam quadratics in under 20 seconds. Save for exam revision! 📐✨ #Class10Math #BoardExamHack #Duniyawi',
     likes: 5820,
@@ -114,11 +114,11 @@ export const COMMUNITY_REELS: EducationalReel[] = [
     category: 'Physics Concept',
     duration: '1:00',
     creator: 'Dr. Mehdi Rezai',
-    creatorAvatar: '/src/assets/images/jobs_interview_1791103058589.jpg',
+    creatorAvatar: '/assets/images/jobs_interview_1791103058589.jpg',
     creatorRole: 'Physics & Systems Fellow',
     videoUrl:
       'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    thumbnail: '/src/assets/images/jobs_interview_1791103058589.jpg',
+    thumbnail: '/assets/images/jobs_interview_1791103058589.jpg',
     caption:
       'Think of light as a marching band walking from smooth pavement into muddy grass. The outer wheels slow down first! That is why light refracts. Complete diagram in 60 seconds! 🔬⚡ #PhysicsMadeSimple #Refraction #Science10',
     likes: 3890,
@@ -134,11 +134,11 @@ export const COMMUNITY_REELS: EducationalReel[] = [
     category: 'Biology Essentials',
     duration: '0:56',
     creator: 'Dr. Ayesha Noor',
-    creatorAvatar: '/src/assets/images/community_hall_1791103097676.jpg',
+    creatorAvatar: '/assets/images/community_hall_1791103097676.jpg',
     creatorRole: 'Medical Educator & Alumni',
     videoUrl:
       'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-    thumbnail: '/src/assets/images/community_hall_1791103097676.jpg',
+    thumbnail: '/assets/images/community_hall_1791103097676.jpg',
     caption:
       'Right side = Deoxygenated to lungs. Left side = Oxygenated to body. Remember this 4-step mnemonic to never mix up tricuspid vs bicuspid valves in your upcoming board exams! 🫀🩺 #BiologyExam #HeartAnatomy #10thStandard',
     likes: 4760,

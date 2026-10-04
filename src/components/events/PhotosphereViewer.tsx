@@ -380,8 +380,8 @@ export const PhotosphereViewer: React.FC<PhotosphereViewerProps> = ({
     img.onerror = (e) => {
       console.warn('Failed to load photosphere JPG image:', src, e);
       // Try fallback if relative url had issues
-      if (src.startsWith('/src/assets/images/')) {
-        const altSrc = src.replace('/src/assets/images/', '/images/');
+      if (src.startsWith('/assets/images/')) {
+        const altSrc = src.replace('/assets/images/', '/images/');
         const fallbackImg = new Image();
         fallbackImg.onload = () => {
           loadedImageRef.current = fallbackImg;

@@ -593,7 +593,7 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
               {showVenuePhotosphere && (
                 <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl animate-in fade-in duration-200">
                   <PhotosphereViewer
-                    src="/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg"
+                    src="/assets/images/mughal_masjid_mumbai_1791105448700.jpg"
                     title="Mughal Masjid Persian Courtyard 360° Photosphere"
                     venueName="Mughal Masjid (Masjid-e-Irani) ممبئی"
                     height="320px"

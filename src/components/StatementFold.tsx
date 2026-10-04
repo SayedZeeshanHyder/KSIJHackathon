@@ -7,7 +7,7 @@ interface StatementFoldProps {
 }
 
 export const StatementFold: React.FC<StatementFoldProps> = ({ 
-  imageSrc = '/src/assets/images/hero_community_ecosystem_1791097428797.jpg',
+  imageSrc = '/assets/images/hero_community_ecosystem_1791097428797.jpg',
   onExploreClick 
 }) => {
   const foldRef = useRef<HTMLDivElement>(null);

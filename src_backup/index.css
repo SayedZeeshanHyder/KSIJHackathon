@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --ground: #FFFFFF;
+    --ground-secondary: #F5F6F8;
+    --ink: #0A0C0E;
+    --ink-secondary: #4A525A;
+    --muted: #78828A;
+    --amber: #E8913C;
+    --teal: #2E6B72;
+    --hairline: rgba(10, 12, 14, 0.12);
+
+    --font-display: 'Syne', sans-serif;
+    --font-sans: 'Sora', sans-serif;
+  }
+
+  body {
+    background-color: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  .font-body {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 12, 14, 0.18);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(10, 12, 14, 0.32);
+}
+
+/* Text outline utility for index numeral */
+.text-stroke-hairline {
+  -webkit-text-stroke: 1.5px rgba(10, 12, 14, 0.22);
+  color: transparent;
+}
+
+/* Floating continuous slide animation right to left */
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-slide-left {
+  display: flex;
+  width: max-content;
+  animation: slideRightToLeft 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-slide-left:hover {
+  animation-play-state: paused;
+}
+

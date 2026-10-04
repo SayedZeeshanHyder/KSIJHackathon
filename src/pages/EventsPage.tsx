@@ -84,7 +84,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({
 
   // Media upload state: Multiple images and 360 Photosphere JPG
   const [newVenueImages, setNewVenueImages] = useState<string[]>([
-    '/src/assets/images/community_hall_1791103097676.jpg'
+    '/assets/images/community_hall_1791103097676.jpg'
   ]);
   const [newVenuePhotosphere, setNewVenuePhotosphere] = useState<string>('');
   const [photosphereError, setPhotosphereError] = useState<string | null>(null);
@@ -220,7 +220,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({
     e.preventDefault();
     if (!newVenueName || !newVenueAddress) return;
 
-    const primaryImage = newVenueImages[0] || '/src/assets/images/community_hall_1791103097676.jpg';
+    const primaryImage = newVenueImages[0] || '/assets/images/community_hall_1791103097676.jpg';
 
     const createdVenue: ShiaVenue = {
       id: `venue_reg_${Date.now()}`,
@@ -918,8 +918,8 @@ export const EventsPage: React.FC<EventsPageProps> = ({
                     onClick={() => {
                       setNewVenueImages(prev => [
                         ...prev,
-                        '/src/assets/images/nikah_banquet_hall_1791105166840.jpg',
-                        '/src/assets/images/majlis_assembly_1791103671432.jpg'
+                        '/assets/images/nikah_banquet_hall_1791105166840.jpg',
+                        '/assets/images/majlis_assembly_1791103671432.jpg'
                       ]);
                     }}
                     className="px-2.5 py-1.5 bg-white border border-gray-200 hover:border-gray-300 rounded-lg text-[11px] font-mono text-[#4A525A] cursor-pointer"
@@ -1036,7 +1036,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({
                   <button
                     type="button"
                     onClick={() => {
-                      setNewVenuePhotosphere('/src/assets/images/bada_imambara_lucknow_1791105419028.jpg');
+                      setNewVenuePhotosphere('/assets/images/bada_imambara_lucknow_1791105419028.jpg');
                       setPhotosphereError(null);
                       setIsPreviewingPhotosphereInModal(true);
                     }}
@@ -1048,7 +1048,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({
                   <button
                     type="button"
                     onClick={() => {
-                      setNewVenuePhotosphere('/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg');
+                      setNewVenuePhotosphere('/assets/images/mughal_masjid_mumbai_1791105448700.jpg');
                       setPhotosphereError(null);
                       setIsPreviewingPhotosphereInModal(true);
                     }}

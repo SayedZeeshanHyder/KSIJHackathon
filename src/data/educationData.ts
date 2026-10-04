@@ -34,7 +34,7 @@ export const EDUCATION_MODULES: EducationModule[] = [
     subject: 'Mathematics',
     duration: '24 mins lecture',
     lectureVideoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    thumbnail: '/src/assets/images/education_session_1791103042527.jpg',
+    thumbnail: '/assets/images/education_session_1791103042527.jpg',
     description: 'Master factorization, completing the square, and quadratic formulas with real-world geometric and physics applications.',
     keyTopics: [
       'Standard form: ax² + bx + c = 0',
@@ -84,7 +84,7 @@ export const EDUCATION_MODULES: EducationModule[] = [
     subject: 'Physics',
     duration: '28 mins lecture',
     lectureVideoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    thumbnail: '/src/assets/images/jobs_interview_1791103058589.jpg',
+    thumbnail: '/assets/images/jobs_interview_1791103058589.jpg',
     description: 'Learn ray diagrams for concave and convex mirrors, Snell\'s law of refraction, lens formula, and the human eye lens mechanics.',
     keyTopics: [
       'Laws of reflection and spherical mirror formulas',
@@ -134,7 +134,7 @@ export const EDUCATION_MODULES: EducationModule[] = [
     subject: 'Biology',
     duration: '22 mins lecture',
     lectureVideoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    thumbnail: '/src/assets/images/community_hall_1791103097676.jpg',
+    thumbnail: '/assets/images/community_hall_1791103097676.jpg',
     description: 'Explore human circulatory networks, cardiac valves, aerobic vs anaerobic glucose breakdown, and nephron filtration in kidneys.',
     keyTopics: [
       'Glycolysis, Krebs cycle and ATP generation',
@@ -185,7 +185,7 @@ export const EDUCATION_MODULES: EducationModule[] = [
     subject: 'Fiqh & Worship',
     duration: '26 mins lecture',
     lectureVideoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    thumbnail: '/src/assets/images/majlis_assembly_1791103671432.jpg',
+    thumbnail: '/assets/images/majlis_assembly_1791103671432.jpg',
     description: 'Comprehensive study of Wudhu prerequisites, Tayammum, purification principles, conditions (Shuroot) of Salah, and spiritual presence (Khushu).',
     keyTopics: [
       'Spiritual and physical purity (Taharah al-Batin wa al-Zahir)',
@@ -240,7 +240,7 @@ export const EDUCATION_MODULES: EducationModule[] = [
     subject: 'Seerah & Morals',
     duration: '30 mins lecture',
     lectureVideoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-    thumbnail: '/src/assets/images/community_event_1791103076936.jpg',
+    thumbnail: '/assets/images/community_event_1791103076936.jpg',
     description: 'Examine the Noble Messenger\'s (PBUH) social compacts, the Treaty of Madinah, upholding orphan rights, honesty in trade, and compassion towards neighbors.',
     keyTopics: [
       'The character description: "Indeed, you are of a great moral character" (Al-Qalam: 4)',
@@ -295,7 +295,7 @@ export const EDUCATION_MODULES: EducationModule[] = [
     subject: 'Quranic Sciences',
     duration: '32 mins lecture',
     lectureVideoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-    thumbnail: '/src/assets/images/heritage_canopy_1791103694047.jpg',
+    thumbnail: '/assets/images/heritage_canopy_1791103694047.jpg',
     description: 'Deep dive into analytical reading of Surah Al-Hujurat and Surah Luqman, linguistic nuances, rhetorical eloquence (Balaghah), and personal spiritual reflection.',
     keyTopics: [
       'The difference between recitation (Tilawah) and contemplation (Tadabbur)',

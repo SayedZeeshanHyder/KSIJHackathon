@@ -99,7 +99,7 @@ export const EventsView: React.FC<EventsViewProps> = ({
       organizer: user.name,
       organizerContact: '+91 98200 12345',
       distance: '2.5 km away',
-      image: '/src/assets/images/community_event_banner_1791097454868.jpg',
+      image: '/assets/images/community_event_banner_1791097454868.jpg',
       registeredCount: 1,
       capacity: 350,
       entryType: 'Free Entry',

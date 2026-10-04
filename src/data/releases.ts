@@ -46,7 +46,7 @@ export const RELEASES: VinylRelease[] = [
     tracksCount: 6,
     duration: '44:18',
     speed: '33 ⅓ RPM',
-    image: '/src/assets/images/record_label_sleeve_one_1791098225130.jpg',
+    image: '/assets/images/record_label_sleeve_one_1791098225130.jpg',
     accent: 'amber',
     description: 'Long-form modular drone recorded direct to two-track Studer A80 mastering tape. Pressed on virgin unbleached vinyl.',
     tracklist: [
@@ -66,7 +66,7 @@ export const RELEASES: VinylRelease[] = [
     tracksCount: 5,
     duration: '38:52',
     speed: '45 RPM',
-    image: '/src/assets/images/record_label_sleeve_two_1791098241889.jpg',
+    image: '/assets/images/record_label_sleeve_two_1791098241889.jpg',
     accent: 'teal',
     description: 'Saturating magnetic tape loops processed through custom discrete passive EQ circuits. Cut at half-speed in Berlin.',
     tracklist: [
@@ -86,7 +86,7 @@ export const RELEASES: VinylRelease[] = [
     tracksCount: 4,
     duration: '36:10',
     speed: '33 ⅓ RPM',
-    image: '/src/assets/images/record_label_sleeve_three_1791098255066.jpg',
+    image: '/assets/images/record_label_sleeve_three_1791098255066.jpg',
     accent: 'amber',
     description: 'Micro-tonal acoustic reflections captured inside decommissioned subterranean reservoir architectures.',
     tracklist: [
@@ -106,7 +106,7 @@ export const RELEASES: VinylRelease[] = [
     tracksCount: 5,
     duration: '41:04',
     speed: '33 ⅓ RPM',
-    image: '/src/assets/images/record_label_sleeve_one_1791098225130.jpg',
+    image: '/assets/images/record_label_sleeve_one_1791098225130.jpg',
     accent: 'teal',
     description: 'The foundation catalogue release. Bukla and Serge modular synthesis captured in a single continuous dawn take.',
     tracklist: [
