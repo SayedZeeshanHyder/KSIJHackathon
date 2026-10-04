@@ -73,7 +73,7 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
 
-  const heroImage = '/src/assets/images/record_label_hero_portal_1791098211379.jpg';
+  const heroImage = '../../assets/landing.jpeg';
   const reelImage = '/src/assets/images/hero_community_ecosystem_1791097428797.jpg';
 
   // Listen to browser navigation (back/forward button, hashes)
