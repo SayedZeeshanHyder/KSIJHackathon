@@ -6,6 +6,8 @@ import {
   ShiaEventType 
 } from '../data/shiaEventsData';
 import { ShiaEventBookingModal } from '../components/ShiaEventBookingModal';
+import { VenueTourModal } from '../components/events/VenueTourModal';
+import { PhotosphereViewer } from '../components/events/PhotosphereViewer';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -29,7 +31,15 @@ import {
   PlusCircle,
   X,
   Send,
-  Navigation
+  Navigation,
+  Rotate3d,
+  Images,
+  Upload,
+  Trash2,
+  Eye,
+  Star,
+  Camera,
+  AlertCircle
 } from 'lucide-react';
 
 interface EventsPageProps {
@@ -71,6 +81,20 @@ export const EventsPage: React.FC<EventsPageProps> = ({
   const [newVenuePhone, setNewVenuePhone] = useState<string>('');
   const [newVenueDonation, setNewVenueDonation] = useState<string>('₹10,000 — ₹25,000');
   const [newVenueDesc, setNewVenueDesc] = useState<string>('');
+
+  // Media upload state: Multiple images and 360 Photosphere JPG
+  const [newVenueImages, setNewVenueImages] = useState<string[]>([
+    '/src/assets/images/community_hall_1791103097676.jpg'
+  ]);
+  const [newVenuePhotosphere, setNewVenuePhotosphere] = useState<string>('');
+  const [photosphereError, setPhotosphereError] = useState<string | null>(null);
+  const [newImageInputUrl, setNewImageInputUrl] = useState<string>('');
+  const [isPreviewingPhotosphereInModal, setIsPreviewingPhotosphereInModal] = useState<boolean>(false);
+
+  // Virtual Tour & Gallery Modal
+  const [tourModalVenue, setTourModalVenue] = useState<ShiaVenue | null>(null);
+  const [isTourModalOpen, setIsTourModalOpen] = useState<boolean>(false);
+  const [tourModalInitialTab, setTourModalInitialTab] = useState<'photosphere' | 'gallery'>('photosphere');
 
   // User reference coordinate (defaulting to Mumbai center 18.96, 72.83 for distance calculations)
   const userCoords = { lat: 18.96, lng: 72.83 };
@@ -138,9 +162,65 @@ export const EventsPage: React.FC<EventsPageProps> = ({
     setTimeout(() => setSubscriptionToast(null), 3500);
   };
 
+  const handleUploadMultipleImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        if (uploadEvent.target?.result) {
+          setNewVenueImages(prev => [...prev, uploadEvent.target!.result as string]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleAddImageUrl = () => {
+    if (!newImageInputUrl.trim()) return;
+    setNewVenueImages(prev => [...prev, newImageInputUrl.trim()]);
+    setNewImageInputUrl('');
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setNewVenueImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSetCoverImage = (index: number) => {
+    setNewVenueImages(prev => {
+      const copy = [...prev];
+      const [selected] = copy.splice(index, 1);
+      return [selected, ...copy];
+    });
+  };
+
+  const handleUploadPhotosphere = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check if it is JPG / JPEG format
+    const isJpg = file.type === 'image/jpeg' || file.name.toLowerCase().endsWith('.jpg') || file.name.toLowerCase().endsWith('.jpeg');
+    if (!isJpg) {
+      setPhotosphereError('Invalid format: The 360° photosphere must be in JPG format (.jpg or .jpeg). Please upload an equirectangular JPG panorama.');
+      return;
+    }
+    setPhotosphereError(null);
+
+    const reader = new FileReader();
+    reader.onload = (uploadEvent) => {
+      if (uploadEvent.target?.result) {
+        setNewVenuePhotosphere(uploadEvent.target.result as string);
+        setIsPreviewingPhotosphereInModal(true);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleRegisterVenueSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newVenueName || !newVenueAddress) return;
+
+    const primaryImage = newVenueImages[0] || '/src/assets/images/community_hall_1791103097676.jpg';
 
     const createdVenue: ShiaVenue = {
       id: `venue_reg_${Date.now()}`,
@@ -151,7 +231,10 @@ export const EventsPage: React.FC<EventsPageProps> = ({
       state: newVenueCity === 'Mumbai' ? 'Maharashtra' : newVenueCity === 'Lucknow' ? 'Uttar Pradesh' : 'State',
       address: newVenueAddress,
       capacity: Number(newVenueCapacity) || 400,
-      image: '/src/assets/images/community_hall_1791103097676.jpg',
+      image: primaryImage,
+      images: newVenueImages.length > 0 ? newVenueImages : [primaryImage],
+      photosphereUrl: newVenuePhotosphere.trim() || undefined,
+      photosphereTitle: newVenuePhotosphere.trim() ? `${newVenueName} 360° Photosphere Virtual Tour` : undefined,
       facilities: [
         'Dedicated Minbar & Audio System',
         'Separate Gents & Ladies Partition Area',
@@ -173,7 +256,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({
 
     setVenuesList(prev => [createdVenue, ...prev]);
     setIsRegisterVenueModalOpen(false);
-    setSubscriptionToast(`Venue "${newVenueName}" registered successfully in the Community Directory!`);
+    setSubscriptionToast(`Venue "${newVenueName}" registered successfully with ${createdVenue.images?.length || 1} photos${createdVenue.photosphereUrl ? ' and 360° Photosphere Tour' : ''}!`);
     setTimeout(() => setSubscriptionToast(null), 3500);
   };
 
@@ -484,6 +567,34 @@ export const EventsPage: React.FC<EventsPageProps> = ({
                           ✓ Registered Nikah Venue
                         </span>
                       )}
+                      {venue.photosphereUrl && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setTourModalVenue(venue);
+                            setTourModalInitialTab('photosphere');
+                            setIsTourModalOpen(true);
+                          }}
+                          className="font-mono text-[10.5px] font-bold px-3 py-1 rounded-full bg-[#E8913C] hover:bg-[#d67e2a] text-neutral-950 flex items-center gap-1 shadow-lg transition-transform hover:scale-105 cursor-pointer"
+                        >
+                          <Rotate3d className="w-3.5 h-3.5" />
+                          <span>360° Tour</span>
+                        </button>
+                      )}
+                      {venue.images && venue.images.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setTourModalVenue(venue);
+                            setTourModalInitialTab('gallery');
+                            setIsTourModalOpen(true);
+                          }}
+                          className="font-mono text-[10.5px] font-medium px-2.5 py-1 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/20 flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          <Images className="w-3 h-3 text-[#E8913C]" />
+                          <span>{venue.images.length} Photos</span>
+                        </button>
+                      )}
                     </div>
 
                     {/* Capacity & Distance Badge */}
@@ -562,6 +673,22 @@ export const EventsPage: React.FC<EventsPageProps> = ({
                       </div>
 
                       <div className="flex items-center gap-2">
+                        {venue.photosphereUrl && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setTourModalVenue(venue);
+                              setTourModalInitialTab('photosphere');
+                              setIsTourModalOpen(true);
+                            }}
+                            className="px-3 py-2.5 rounded-lg border border-[#E8913C]/40 bg-amber-500/10 hover:bg-amber-500/20 text-[#d67e2a] font-mono text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                            title="Interactive 360° Photosphere Virtual Tour"
+                          >
+                            <Rotate3d className="w-3.5 h-3.5 text-[#E8913C]" />
+                            <span className="hidden sm:inline">360° Tour</span>
+                          </button>
+                        )}
+
                         <button
                           type="button"
                           onClick={() => handleToggleSubscribe(venue.id, venue.name)}
@@ -746,12 +873,238 @@ export const EventsPage: React.FC<EventsPageProps> = ({
               <div>
                 <label className="font-bold text-[#0A0C0E] block mb-1">Description & Heritage Notes</label>
                 <textarea
-                  rows={3}
+                  rows={2}
                   placeholder="Describe your center's history, facilities, parking, wudu, and rules."
                   value={newVenueDesc}
                   onChange={(e) => setNewVenueDesc(e.target.value)}
                   className="w-full px-3 py-2 border rounded focus:outline-none focus:border-[#E8913C]"
                 />
+              </div>
+
+              {/* -------------------------------------------------------- */}
+              {/* SECTION: MULTIPLE VENUE GALLERY IMAGES */}
+              {/* -------------------------------------------------------- */}
+              <div className="p-4 rounded-xl bg-[#F9FAFB] border border-[rgba(10,12,14,0.1)] space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Images className="w-4 h-4 text-[#E8913C]" />
+                    <span className="font-bold text-[#0A0C0E] text-xs uppercase font-mono">
+                      Venue Gallery Photos ({newVenueImages.length})
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-[#78828A]">First image is Primary Cover</span>
+                </div>
+
+                <p className="text-[11px] text-[#4A525A]">
+                  Add multiple photos of your hall, minbar, courtyard, and facilities to give community members a complete visual overview.
+                </p>
+
+                {/* Upload & URL Controls */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <label className="px-3 py-1.5 bg-white border border-gray-300 hover:border-[#E8913C] rounded-lg text-xs font-mono font-medium flex items-center gap-1.5 cursor-pointer shadow-sm transition-colors">
+                    <Upload className="w-3.5 h-3.5 text-[#E8913C]" />
+                    <span>Upload Multiple Photos</span>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleUploadMultipleImages}
+                      className="hidden"
+                    />
+                  </label>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNewVenueImages(prev => [
+                        ...prev,
+                        '/src/assets/images/nikah_banquet_hall_1791105166840.jpg',
+                        '/src/assets/images/majlis_assembly_1791103671432.jpg'
+                      ]);
+                    }}
+                    className="px-2.5 py-1.5 bg-white border border-gray-200 hover:border-gray-300 rounded-lg text-[11px] font-mono text-[#4A525A] cursor-pointer"
+                  >
+                    + Add Preset Photos
+                  </button>
+                </div>
+
+                {/* Image URL input */}
+                <div className="flex items-center gap-2">
+                  <input
+                    type="url"
+                    placeholder="Or paste image URL (https://...)"
+                    value={newImageInputUrl}
+                    onChange={(e) => setNewImageInputUrl(e.target.value)}
+                    className="flex-1 px-3 py-1.5 border rounded text-xs focus:outline-none focus:border-[#E8913C] bg-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAddImageUrl}
+                    className="px-3 py-1.5 bg-[#0A0C0E] text-white rounded text-xs font-mono font-bold hover:bg-[#E8913C] transition-colors cursor-pointer"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                {/* Thumbnail Strip */}
+                {newVenueImages.length > 0 && (
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 pt-1">
+                    {newVenueImages.map((img, idx) => (
+                      <div 
+                        key={idx} 
+                        className={`relative group rounded-lg overflow-hidden border-2 bg-neutral-900 h-20 ${
+                          idx === 0 ? 'border-[#E8913C] shadow-md' : 'border-gray-200'
+                        }`}
+                      >
+                        <img
+                          src={img}
+                          alt={`Venue photo ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                        
+                        {/* Cover badge */}
+                        {idx === 0 ? (
+                          <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded bg-[#E8913C] text-neutral-950 font-mono text-[9px] font-bold flex items-center gap-0.5">
+                            <Star className="w-2.5 h-2.5 fill-neutral-950" />
+                            <span>COVER</span>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => handleSetCoverImage(idx)}
+                            className="absolute top-1 left-1 opacity-0 group-hover:opacity-100 px-1.5 py-0.5 rounded bg-black/80 text-white font-mono text-[9px] transition-opacity cursor-pointer"
+                          >
+                            Set Cover
+                          </button>
+                        )}
+
+                        {/* Remove button */}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(idx)}
+                          className="absolute top-1 right-1 p-1 rounded bg-black/75 hover:bg-rose-600 text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                          title="Remove photo"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* -------------------------------------------------------- */}
+              {/* SECTION: 360° PHOTOSPHERE VIRTUAL TOUR (JPG FORMAT) */}
+              {/* -------------------------------------------------------- */}
+              <div className="p-4 rounded-xl bg-gradient-to-br from-amber-500/5 via-[#F9FAFB] to-amber-500/10 border border-amber-500/30 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Rotate3d className="w-4 h-4 text-[#E8913C]" />
+                    <span className="font-bold text-[#0A0C0E] text-xs uppercase font-mono">
+                      360° Photosphere Virtual Tour (JPG Format)
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9.5px] uppercase font-bold px-2 py-0.5 rounded bg-[#E8913C] text-neutral-950">
+                    JPG Format Only
+                  </span>
+                </div>
+
+                <p className="text-[11px] text-[#4A525A]">
+                  Upload an equirectangular 360° panoramic photo in **JPG** format (taken with a 360 camera or phone panorama app). Visitors will be able to pan and look around your venue in full 360 degrees.
+                </p>
+
+                {photosphereError && (
+                  <div className="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{photosphereError}</span>
+                  </div>
+                )}
+
+                {/* Upload & Presets */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <label className="px-3 py-1.5 bg-white border border-[#E8913C] hover:bg-amber-50 rounded-lg text-xs font-mono font-bold text-[#0A0C0E] flex items-center gap-1.5 cursor-pointer shadow-sm transition-colors">
+                    <Camera className="w-3.5 h-3.5 text-[#E8913C]" />
+                    <span>Choose 360° Photosphere (.jpg)</span>
+                    <input
+                      type="file"
+                      accept=".jpg,.jpeg,image/jpeg"
+                      onChange={handleUploadPhotosphere}
+                      className="hidden"
+                    />
+                  </label>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNewVenuePhotosphere('/src/assets/images/bada_imambara_lucknow_1791105419028.jpg');
+                      setPhotosphereError(null);
+                      setIsPreviewingPhotosphereInModal(true);
+                    }}
+                    className="px-2.5 py-1.5 bg-white border border-gray-300 hover:border-[#E8913C] rounded-lg text-[11px] font-mono text-[#0A0C0E] cursor-pointer"
+                  >
+                    Load Sample 360° Imambargah JPG
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNewVenuePhotosphere('/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg');
+                      setPhotosphereError(null);
+                      setIsPreviewingPhotosphereInModal(true);
+                    }}
+                    className="px-2.5 py-1.5 bg-white border border-gray-300 hover:border-[#E8913C] rounded-lg text-[11px] font-mono text-[#0A0C0E] cursor-pointer"
+                  >
+                    Load Sample 360° Masjid JPG
+                  </button>
+                </div>
+
+                {/* Attached Photosphere Status & Inline Preview Toggle */}
+                {newVenuePhotosphere && (
+                  <div className="space-y-2 pt-1">
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span className="font-semibold text-emerald-900 font-mono text-[11.5px]">
+                          ✓ 360° JPG Photosphere Ready
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setIsPreviewingPhotosphereInModal(prev => !prev)}
+                          className="px-2.5 py-1 rounded bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[10px] flex items-center gap-1 cursor-pointer"
+                        >
+                          <Eye className="w-3 h-3 text-[#E8913C]" />
+                          <span>{isPreviewingPhotosphereInModal ? 'Hide 360 Preview' : 'Interactive 360 Preview'}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewVenuePhotosphere('');
+                            setIsPreviewingPhotosphereInModal(false);
+                          }}
+                          className="p-1 rounded text-neutral-400 hover:text-rose-600 cursor-pointer"
+                          title="Remove Photosphere"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Live Interactive Photosphere Preview in Modal */}
+                    {isPreviewingPhotosphereInModal && (
+                      <div className="rounded-xl overflow-hidden border border-neutral-700 shadow-inner">
+                        <PhotosphereViewer
+                          src={newVenuePhotosphere}
+                          title="Live Registration 360° Test"
+                          height="260px"
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="pt-3 border-t flex justify-end gap-2">
@@ -764,15 +1117,25 @@ export const EventsPage: React.FC<EventsPageProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-[#E8913C] hover:bg-[#d67e2a] text-white font-bold rounded cursor-pointer transition-colors"
+                  className="px-5 py-2 bg-[#E8913C] hover:bg-[#d67e2a] text-white font-bold rounded cursor-pointer transition-colors flex items-center gap-1.5"
                 >
-                  Publish Venue Listing
+                  <Building2 className="w-4 h-4" />
+                  <span>Publish Venue Listing</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
+
+      {/* Modal 3: 360 Photosphere Tour & Multi-photo Gallery Modal */}
+      <VenueTourModal
+        venue={tourModalVenue}
+        isOpen={isTourModalOpen}
+        onClose={() => setIsTourModalOpen(false)}
+        onBookVenue={(v) => handleOpenBooking(v)}
+        initialTab={tourModalInitialTab}
+      />
 
     </div>
   );

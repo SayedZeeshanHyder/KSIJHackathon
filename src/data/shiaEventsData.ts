@@ -8,6 +8,9 @@ export interface ShiaVenue {
   address: string;
   capacity: number;
   image: string;
+  images?: string[];
+  photosphereUrl?: string;
+  photosphereTitle?: string;
   facilities: string[];
   recommendedFor: string[];
   suggestedDonation: string; // in INR ₹
@@ -150,6 +153,14 @@ export const SHIA_VENUES: ShiaVenue[] = [
     address: 'Machchhi Bhavan, Husainabad, Lucknow, Uttar Pradesh 226003',
     capacity: 2500,
     image: '/src/assets/images/bada_imambara_lucknow_1791105419028.jpg',
+    images: [
+      '/src/assets/images/bada_imambara_lucknow_1791105419028.jpg',
+      '/src/assets/images/heritage_canopy_1791103694047.jpg',
+      '/src/assets/images/majlis_assembly_1791103671432.jpg',
+      '/src/assets/images/community_hall_1791103097676.jpg'
+    ],
+    photosphereUrl: '/src/assets/images/bada_imambara_lucknow_1791105419028.jpg',
+    photosphereTitle: 'Bada Imambara Central Vault & Asfi Mosque 360° Panorama',
     facilities: [
       'Historic Asfi Central Congregational Mosque',
       'Massive Vaulted Central Assembly Hall (No pillars)',
@@ -179,6 +190,13 @@ export const SHIA_VENUES: ShiaVenue[] = [
     address: 'Husainabad, Daulatganj, Lucknow, Uttar Pradesh 226003',
     capacity: 1200,
     image: '/src/assets/images/chhota_imambara_lucknow_1791105435047.jpg',
+    images: [
+      '/src/assets/images/chhota_imambara_lucknow_1791105435047.jpg',
+      '/src/assets/images/heritage_canopy_1791103694047.jpg',
+      '/src/assets/images/nikah_banquet_hall_1791105166840.jpg'
+    ],
+    photosphereUrl: '/src/assets/images/chhota_imambara_lucknow_1791105435047.jpg',
+    photosphereTitle: 'Chhota Imambara Hall of Chandeliers 360° Tour',
     facilities: [
       'Historic Hall of Chandeliers (Zarih & Azakhana)',
       'Reflecting Pool & Illuminated Courtyard Gardens',
@@ -208,6 +226,13 @@ export const SHIA_VENUES: ShiaVenue[] = [
     address: 'Imamwada Road, Bhendi Bazaar / Dongri, Mumbai, Maharashtra 400009',
     capacity: 1000,
     image: '/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg',
+    images: [
+      '/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg',
+      '/src/assets/images/shia_mosque_exterior_1791105150363.jpg',
+      '/src/assets/images/majlis_assembly_1791103671432.jpg'
+    ],
+    photosphereUrl: '/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg',
+    photosphereTitle: 'Mughal Masjid Persian Courtyard & Mosaic Hall 360° Photosphere',
     facilities: [
       'Authentic Blue & Turquoise Persian Mosaic Tilework',
       'Spacious Open-Air Marble Courtyard with Fountain',
@@ -237,6 +262,13 @@ export const SHIA_VENUES: ShiaVenue[] = [
     address: 'Noor Baug, Babula Tank Cross Lane, Dongri, Mumbai, Maharashtra 400009',
     capacity: 850,
     image: '/src/assets/images/noor_baug_mumbai_1791105498823.jpg',
+    images: [
+      '/src/assets/images/noor_baug_mumbai_1791105498823.jpg',
+      '/src/assets/images/nikah_banquet_hall_1791105166840.jpg',
+      '/src/assets/images/community_hall_1791103097676.jpg'
+    ],
+    photosphereUrl: '/src/assets/images/nikah_banquet_hall_1791105166840.jpg',
+    photosphereTitle: 'Noor Baug Grand Reception & Banquet Pavilion 360° Photosphere',
     facilities: [
       'Air-Conditioned Grand Banquet Hall with Stage',
       'Dedicated Partition Screens for Gents and Ladies Dining',
@@ -266,6 +298,13 @@ export const SHIA_VENUES: ShiaVenue[] = [
     address: 'Hosur Road, Johnson Market, Richmond Town, Bengaluru, Karnataka 560025',
     capacity: 1100,
     image: '/src/assets/images/masjid_askari_bangalore_1791105466414.jpg',
+    images: [
+      '/src/assets/images/masjid_askari_bangalore_1791105466414.jpg',
+      '/src/assets/images/shia_mosque_exterior_1791105150363.jpg',
+      '/src/assets/images/majlis_assembly_1791103671432.jpg'
+    ],
+    photosphereUrl: '/src/assets/images/masjid_askari_bangalore_1791105466414.jpg',
+    photosphereTitle: 'Masjid-e-Askari Central Prayer Sanctuary 360° Photosphere',
     facilities: [
       'Central Congregational Prayer Hall',
       'Dedicated Ladies Enclosure with Audio Relay',
@@ -295,6 +334,13 @@ export const SHIA_VENUES: ShiaVenue[] = [
     address: 'Near Madina Circle, Pathergatti / Dabeerpura, Old City, Hyderabad, Telangana 500002',
     capacity: 1500,
     image: '/src/assets/images/ashurkhana_hyderabad_1791105483280.jpg',
+    images: [
+      '/src/assets/images/ashurkhana_hyderabad_1791105483280.jpg',
+      '/src/assets/images/heritage_canopy_1791103694047.jpg',
+      '/src/assets/images/community_hall_1791103097676.jpg'
+    ],
+    photosphereUrl: '/src/assets/images/ashurkhana_hyderabad_1791105483280.jpg',
+    photosphereTitle: 'Badshahi Ashurkhana Qutb Shahi Sanctuary 360° Photosphere',
     facilities: [
       'Historic 16th-Century Qutb Shahi Enamelled Tile Sanctuary',
       'Massive Open & Covered Ashurkhana Courtyards',

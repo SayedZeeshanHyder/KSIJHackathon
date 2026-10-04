@@ -22,9 +22,12 @@ import {
   XCircle,
   Check,
   Lock,
-  Plus
+  Plus,
+  Rotate3d,
+  Images
 } from 'lucide-react';
 import { UserProfile, Course, Job, CommunityEvent, JobApplication } from '../../types';
+import { PhotosphereViewer } from '../events/PhotosphereViewer';
 
 interface UnifiedDashboardProps {
   user: UserProfile;
@@ -78,6 +81,7 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
   ]);
 
   const [blockedDates, setBlockedDates] = useState<string[]>(['2026-10-25', '2026-10-31']);
+  const [showVenuePhotosphere, setShowVenuePhotosphere] = useState(false);
 
   const handleApproveBooking = (id: string) => {
     setVenueBookings(prev => prev.map(b => b.id === id ? { ...b, status: 'Confirmed' } : b));
@@ -526,6 +530,76 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
                   );
                 })}
               </div>
+            </div>
+
+            {/* Visual Media & 360° Photosphere Management */}
+            <div className="space-y-4 pt-4 border-t border-neutral-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <Rotate3d className="w-4 h-4 text-amber-400" />
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-300 font-bold">
+                    Venue Visuals & 360° Photosphere JPG Tour
+                  </h3>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowVenuePhotosphere(prev => !prev)}
+                    className="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Rotate3d className="w-3.5 h-3.5" />
+                    <span>{showVenuePhotosphere ? 'Hide 360° Tour' : 'Test 360° Photosphere'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('events')}
+                    className="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Images className="w-3.5 h-3.5" />
+                    <span>Manage Gallery & Photos</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3.5 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-1">
+                  <span className="font-mono text-[10px] text-neutral-500 uppercase">360° Photosphere</span>
+                  <p className="font-bold text-emerald-400 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Active (Equirectangular JPG)</span>
+                  </p>
+                  <p className="text-[11px] text-neutral-400">Mughal Masjid Persian Courtyard</p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-1">
+                  <span className="font-mono text-[10px] text-neutral-500 uppercase">Gallery Photos</span>
+                  <p className="font-bold text-white flex items-center gap-1">
+                    <Images className="w-3.5 h-3.5 text-amber-400" />
+                    <span>3 Attached Photos</span>
+                  </p>
+                  <p className="text-[11px] text-neutral-400">Exterior, Sanctuary, Courtyard</p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-1">
+                  <span className="font-mono text-[10px] text-neutral-500 uppercase">Virtual Tour Views</span>
+                  <p className="font-bold text-amber-300 font-mono">1,240 Tours Taken</p>
+                  <p className="text-[11px] text-neutral-400">+18% booking conversion</p>
+                </div>
+              </div>
+
+              {/* Interactive Photosphere test canvas when toggled */}
+              {showVenuePhotosphere && (
+                <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl animate-in fade-in duration-200">
+                  <PhotosphereViewer
+                    src="/src/assets/images/mughal_masjid_mumbai_1791105448700.jpg"
+                    title="Mughal Masjid Persian Courtyard 360° Photosphere"
+                    venueName="Mughal Masjid (Masjid-e-Irani) ممبئی"
+                    height="320px"
+                  />
+                </div>
+              )}
             </div>
 
           </div>
